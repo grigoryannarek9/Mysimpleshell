@@ -31,7 +31,6 @@ void loop() {
         if (args[0] == NULL) {
             continue;
         }
-        // myhistory_write(command,fd);
         if (strcmp(args[0], "exit") == 0 || 
             strcmp(args[0], "pwd") == 0 || 
             strcmp(args[0], "cd") == 0 ||
@@ -40,8 +39,7 @@ void loop() {
             strcmp(args[0], "echo") == 0 ||
             strcmp(args[0], "help") == 0 ||
             strcmp(args[0], "history") == 0) {
-            //myhistory_write(command,fd);
-            myexecute(args,fd);
+            myexecute(args);
             continue;
         }else{
 
@@ -51,7 +49,6 @@ void loop() {
             exit(1);
         } else if (pid == 0) {
             execvp(args[0], args);
-            
             fprintf(stderr, "command not found: %s\n", args[0]);
             exit(1);  
         } else {

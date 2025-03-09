@@ -5,6 +5,7 @@
 #define PATH_MAX 500
 #define HISTORYSIZE 5
 
+
 typedef struct {
     char* key;
     char* value;
@@ -13,8 +14,8 @@ typedef struct {
 void mycd(char* path);
 void loop();
 void mypwd();
-void myexecute(char* args[], int fd); 
-void myexit(int fd); 
+void myexecute(char* args[]);
+void myexit();
 void myecho(char* args[]);
 void myhelp(char* args[]);
 int myhistorycall();

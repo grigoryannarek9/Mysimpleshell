@@ -1,9 +1,10 @@
 #include "shell.h"
 
-void myexecute(char* args[],int fd) {
-    
+void myexecute(char* args[]) {
+        int fd = open("/tmp/history.txt", O_RDWR | O_CREAT | O_APPEND, 0666);
+
     if (strcmp(args[0], "exit") == 0) {
-        myexit(fd);
+        myexit();
     } else if (strcmp(args[0], "pwd") == 0) {
         mypwd();
     } else if (strcmp(args[0], "cd") == 0) {

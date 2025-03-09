@@ -7,14 +7,12 @@ void mypwd() {
         perror("getcwd failed");
     }
 }
-void myexit(int fd) {
-    
+void myexit() {
     printf("Saving session...\n");
     printf("...copying shared history...\n");
     printf("...saving history...truncating history files...\n");
     printf("...completed.\n");
     printf("[Process completed]");
-    close(fd);
     remove("history.txt");
     exit(0);
 }

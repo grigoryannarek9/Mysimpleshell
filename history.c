@@ -1,25 +1,18 @@
 #include "shell.h"
 int myhistorycall(){
-    int fd = open("history.txt",O_CREAT|O_RDWR|O_APPEND,0666);
-    if(fd<0){
+    int fd = open("/tmp/history.txt", O_RDWR | O_CREAT | O_APPEND, 0666);
+    if(fd < 0){
         perror("File failed");
         return -1;
     }
-
     return fd;
 }
-void myhistory_write(char*command,int fd){
-    ssize_t max_size;
+
+void myhistory_write(char*command,int fd){   
+    char buffer[MAXSIZE];
     write(fd,command, strlen(command));
     write(fd,"\n",1);
-    //max_size = lseek(fd,0,SEEK_END);
-    // if(max_size==5){
-    //     lseek(fd,0,SEEK_SET);
-    //     write(fd,command, strlen(command));
-    //     write(fd,"\n",1);
-    // }
     fsync(fd);
-    
 }
 void myhistory_read(int fd) {
     char buff[MAXSIZE];
