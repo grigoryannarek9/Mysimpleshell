@@ -1,4 +1,8 @@
 #include "shell.h"
+void handle(int sig){
+    myexit();
+}
+
 void mypwd() {
     char buffer[PATH_MAX];
     if (getcwd(buffer, sizeof(buffer)) != NULL) {
@@ -13,7 +17,7 @@ void myexit() {
     printf("...saving history...truncating history files...\n");
     printf("...completed.\n");
     printf("[Process completed]");
-    remove("history.txt");
+    remove("/tmp/history.txt");
     exit(0);
 }
 
@@ -72,7 +76,24 @@ void myhelp(char* args[]) {
 void myecho(char* args[]) {
     int i = 1;  
     while (args[i] != NULL) {
-        printf("%s ", args[i]);
+        if (args[i][0] == '$') { 
+            char* var_name = args[i] + 1; 
+            int found = 0;
+
+            for (int j = 0; j < var_count; j++) {
+                if (strcmp(variables[j].key, var_name) == 0) {
+                    printf("%s ", variables[j].value); 
+                    found = 1;
+                    break;
+                }
+            }
+
+            if (!found) {
+                printf("Undefined variable: %s ", var_name);
+            }
+        } else {
+            printf("%s ", args[i]); 
+        }
         i++;
     }
     printf("\n");  

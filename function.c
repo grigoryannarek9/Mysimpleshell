@@ -11,6 +11,7 @@ void loop() {
     username[strcspn(username, "\n")] = '\0'; 
 
     while (1) {
+        signal(SIGINT,handle);
         printf("%sshell>> ", username);
         if (!fgets(command, sizeof(command), stdin)) {
             printf("\n");

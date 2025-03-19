@@ -16,4 +16,23 @@ void myexecute(char* args[]) {
     }else if(strcmp(args[0],"history")==0){
         myhistory_read(fd);
     }
+    else if (strcmp(args[0], "set") == 0) {
+        if (args[1] == NULL) {
+            printf("Error: Missing key=value pair.\n");
+            return;
+        }
+
+        char* key = strtok(args[1], "="); 
+        char* value = strtok(NULL, "=");
+
+        if (key == NULL || value == NULL) {
+            printf("Error: Invalid format. Use key=value.\n");
+            return;
+        }
+
+        set_variable(key, value); 
+    }
+    else if(strcmp(args[0],"unset")==0){
+        unset_variable(args[1]);
+    }
 }
